@@ -26,7 +26,6 @@ let
       pkgs.gnome-themes-extra
       pkgs.sassc
     ];
-    propagatedUserEnvPkgs = [ pkgs.gtk-engine-murrine ];
     installPhase = ''
       runHook preInstall
       # Prepare folders and index.theme
