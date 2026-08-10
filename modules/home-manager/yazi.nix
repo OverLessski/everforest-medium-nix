@@ -15,8 +15,8 @@ let
   everforest-medium-yazi = pkgs.fetchFromGitHub {
     owner = "Chromium-3-Oxide";
     repo = "everforest-medium.yazi";
-    rev = "3d5f8471fa6d5c2130d8a980b4ef48d8c5c8521d";
-    hash = "sha256-FXg++wVSGrJZnYodzkS4eVIeQE1xm8o0urnoInqfP5g=";
+    rev = "e1ead7b5a3bfc8eb572fd269a369775842752705";
+    hash = "sha256-2Fx7+xnSsc+aVHBZUtLtVUDEzb1y8BcPBASciKk8x7o=";
   };
 in
 {
