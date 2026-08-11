@@ -38,6 +38,10 @@ in
         custom_palette = true;
         color_scheme_path = "${config.xdg.configHome}/qt6ct/colors/Everforest-Medium.conf";
       };
+      Fonts = {
+        fixed = "\"JetBrainsMono Nerd Font Mono,12\"";
+        general = "\"JetBrainsMono Nerd Font Mono,12\"";
+      };
     };
   };
 }

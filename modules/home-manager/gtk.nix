@@ -74,6 +74,11 @@ in
         package = everforest-gtk-theme-medium;
       };
       gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+
+      font = {
+        name = "JetBrainsMono Nerd Font Mono";
+        size = 12;
+      };
     };
     xdg.configFile =
       let
