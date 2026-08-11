@@ -51,6 +51,15 @@ let
         }
       ];
     }
+     {
+      file = ./qt6ct.nix;
+      themes = [
+        {
+          name = "qt6ct";
+          platforms = [ "linux" ];
+        }
+      ];
+    }
   ];
 
   fail = message: throw "Invalid Home Manager Application Theme Catalog: ${message}";
