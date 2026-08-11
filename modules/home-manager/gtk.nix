@@ -29,7 +29,7 @@ let
     installPhase = ''
       runHook preInstall
       # Prepare folders and index.theme
-      ${pkgs.coreutils-full}/bin/mkdir -p "$out/share/"{themes/everforest/{gtk-2.0,gtk-3.0,gtk-4.0},icons}
+      ${pkgs.coreutils-full}/bin/mkdir -p "$out/share/"{themes/everforest/{gtk-3.0,gtk-4.0},icons}
       ${pkgs.coreutils-full}/bin/cp -rf icons/Everforest-Dark "$out/share/icons"
       ${pkgs.coreutils-full}/bin/cp -rf themes/src "$out/share/src"
       ${pkgs.coreutils-full}/bin/echo "Type=X-GNOME-Metatheme" >> "$out/share/themes/everforest/index.theme"
@@ -41,10 +41,6 @@ let
       ${pkgs.coreutils-full}/bin/cp -rf "$out/share/src/sass/_tweaks.scss" "$out/share/src/sass/tweaks-temp.scss"
       ${pkgs.gnused}/bin/sed -i "/\@import/s/color-palette-default/color-palette-medium/" "$out/share/src/sass/tweaks-temp.scss"
       ${pkgs.gnused}/bin/sed -i "/\$colorscheme:/s/default/medium/" "$out/share/src/sass/tweaks-temp.scss"
-      # GTK 2
-      ${pkgs.coreutils-full}/bin/cp -r "$out/share/src/main/gtk-2.0/common/"*.rc "$out/share/themes/everforest/gtk-2.0"
-      ${pkgs.coreutils-full}/bin/cp -r "$out/share/src/assets/gtk-2.0/assets-common-Dark" "$out/share/themes/everforest/gtk-2.0/assets"
-      ${pkgs.coreutils-full}/bin/cp -r "$out/share/src/assets/gtk-2.0/assets-Green-Dark-Medium/"*png "$out/share/themes/everforest/gtk-2.0/assets"
       # GTK 3
       ${pkgs.coreutils-full}/bin/cp -r "$out/share/src/assets/gtk/assets-Green-Medium" "$out/share/themes/everforest/gtk-3.0/assets"
       ${pkgs.coreutils-full}/bin/cp -r "$out/share/src/assets/gtk/scalable" "$out/share/themes/everforest/gtk-3.0/assets"
@@ -56,8 +52,6 @@ let
       ${pkgs.coreutils-full}/bin/cp -r "$out/share/src/assets/gtk/thumbnails/thumbnail-Green-Medium-Dark.png" "$out/share/themes/everforest/gtk-4.0/thumbnail.png"
       ${pkgs.sassc}/bin/sassc -M -t expanded "$out/share/src/main/gtk-4.0/gtk-Dark.scss" "$out/share/themes/everforest/gtk-4.0/gtk-dark.css"
       ${pkgs.sassc}/bin/sassc -M -t expanded "$out/share/src/main/gtk-4.0/gtk-Dark.scss" "$out/share/themes/everforest/gtk-4.0/gtk.css"
-      # gtkrc
-      ${pkgs.coreutils-full}/bin/cp -r "$out/share/src/main/gtk-2.0/gtkrc-Dark-Medium" "$out/share/themes/everforest/gtk-2.0/gtkrc"
       runHook postInstall
     '';
     postInstall = ''
@@ -81,24 +75,10 @@ in
       };
       gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
     };
-    dconf.settings = {
-      "org/gnome/shell" = {
-        disable-user-extensions = false;
-        enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" ];
-      };
-      "org/gnome/shell/extensions/user-theme" = {
-        inherit (config.gtk.theme) name;
-      };
-      "org/gnome/desktop/interface" = {
-        gtk-theme = config.gtk.theme.name;
-        color-scheme = "prefer-dark";
-      };
-    };
     xdg.configFile =
       let
         gtk4 = "${config.gtk.theme.package}/share/themes/everforest/gtk-4.0";
         gtk3 = "${config.gtk.theme.package}/share/themes/everforest/gtk-3.0";
-        gtk2 = "${config.gtk.theme.package}/share/themes/everforest/gtk-3.0";
       in
       {
         "gtk-4.0/assets".source = "${gtk4}/assets";
