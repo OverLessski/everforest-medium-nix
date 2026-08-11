@@ -25,8 +25,8 @@ in
   config = lib.mkIf (cfg.enable && config.qt.enable) {
     assertions = [
       {
-        assertion = config.qt.platformTheme.name == "everforest-medium";
-        message = "qt.platformTheme.name must be 'everforest-medium' to use everforest.qt6ct";
+        assertion = config.qt.platformTheme.name == "qt6ct";
+        message = "qt.platformTheme.name must be 'qt6ct' to use everforest.qt6ct";
       }
     ];
 
